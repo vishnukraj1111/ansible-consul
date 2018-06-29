@@ -1,0 +1,71 @@
+---
+- name: ensure consul run directory
+  file:
+    path: "{{ consul_dir }}"
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+
+- name: Extract exctract consul to {{ consul_dir }}
+  unarchive:
+    src: https://releases.hashicorp.com/consul/1.0.6/consul_1.0.6_linux_amd64.zip
+    dest: "{{ consul_dir }}"
+    copy: no
+    mode: 0755
+
+- name: ensure consul run data directory
+  file:
+    path: "{{ consul_data_dir }}"
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+
+- name: ensure consul config directory
+  file:
+    path: "{{ consul_conf_dir }}"
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
+ 
+
+- name: put consul configuration in server_mode
+  template:
+    src: "server_mode.json"
+    dest: "{{ consul_conf_dir }}/server_mode.json"
+    owner: root
+    group: root
+    mode: 0644
+  when: consul_server
+
+- name: put consul configuration in agent_mode
+  template:
+    src: "agent_mode.json"
+    dest: "{{ consul_conf_dir }}/agent_mode.json"
+    owner: root
+    group: root
+    mode: 0644
+  when: consul_agent
+
+- name: put systemd configuration for server
+  template:
+    src: consul.server.service
+    dest: /etc/init.d/consul
+    owner: root
+    group: root
+    mode: 0755
+  when: consul_server
+
+- name: put systemd configuration for agent
+  template:
+    src: consul.agent.service
+    dest: /etc/init.d/consul
+    owner: root
+    group: root
+    mode: 0755
+  when: consul_agent
+
+- name: start consul
+  service: name=consul state=started enabled=yes

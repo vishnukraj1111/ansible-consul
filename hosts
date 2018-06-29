@@ -1,0 +1,9 @@
+[consul_server]
+xx.xx.xx.xx
+xxx.xx.xxx.xx
+xx.xxx.xx.xx
+
+[consul_agent]
+xx.xx.xx.xx
+xxx.xx.xxx.xx
+xx.xxx.xx.xx
