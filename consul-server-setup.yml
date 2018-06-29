@@ -1,4 +1,3 @@
----
 - hosts: #your host file name or dynamic tag/group value in case of dynamic inventory
   become: yes
 
