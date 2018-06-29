@@ -2,6 +2,7 @@
 
 #Usage
 
+
 consul-server-setup.yml
 
 - hosts: #your host file name or dynamic tag/group value in case of dynamic inventory
@@ -45,7 +46,7 @@ consul-agent-setup.yml
   roles:
     - role: ansible-consul
 
-#FOR STATIC INVENTORY
+#For Static Inventory
 ---------------------
 
 ansible-playbook -i hosts consul-server-setup.yml # To setup consul in server mode
@@ -53,7 +54,7 @@ ansible-playbook -i hosts consul-server-setup.yml # To setup consul in server mo
 ansible-playbook -i hosts consul-agent-setup.yml  # To setup consul in agent mode
 
 
-#FOR DYNAMIC INVENTORY IN CASE OF AWS
+#For Dynamic inventory in case of AWS
 -------------------------------------
 
 ansible-playbook -i ec2.py consul-server-setup.yml # To setup consul in server mode
