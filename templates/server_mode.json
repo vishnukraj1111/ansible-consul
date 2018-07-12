@@ -12,7 +12,7 @@
     "start_join": [{% for host in groups['consul_server'] -%}
 "{{ hostvars[host].inventory_hostname }}"{% if not loop.last %},{% endif %}
 {%- endfor %}],
-    "recursors": "{{ consul_recursor }}",
+    "recursors": ["{{ consul_recursor }}"],
     "domain":"{{ consul_domain }}",
     "addresses": {
     "http": "0.0.0.0",
